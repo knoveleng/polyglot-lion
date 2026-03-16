@@ -184,7 +184,43 @@ Polyglot-Lion can be fine-tuned on your own data using the Qwen3-ASR fine-tuning
 
 ---
 
-## 📝 Citation
+## � Evaluation
+
+We use [asr-evalkit](https://github.com/knoveleng/asr-evalkit) — a modular toolkit for evaluating ASR models — to benchmark Polyglot-Lion.
+
+### Setup
+
+```bash
+git clone https://github.com/knoveleng/asr-evalkit.git
+cd asr-evalkit
+
+uv venv asr --python 3.12
+source asr/bin/activate
+
+uv pip install -e .
+uv pip install vllm  # required for Polyglot-Lion (qwen3_asr evaluator)
+```
+
+### Run Evaluation
+
+```bash
+asr-evalkit \
+  --evaluator qwen3_asr \
+  --model knoveleng/polyglot-lion-1.7b \
+  --dataset openslr/librispeech_asr \
+  --dataset-config clean \
+  --dataset-split test \
+  --streaming \
+  --audio-column audio \
+  --text-column text \
+  --output-file results.json
+```
+
+For additional evaluators, datasets, and Python API usage, see the [asr-evalkit documentation](https://github.com/knoveleng/asr-evalkit).
+
+---
+
+## �📝 Citation
 
 If you find Polyglot-Lion useful in your research, please cite:
 
