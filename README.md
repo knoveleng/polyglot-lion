@@ -142,7 +142,6 @@ model = Qwen3ASRModel.from_pretrained(
     max_new_tokens=256,
 )
 
-# Accepts: local path, URL, base64 data, or (np.ndarray, sr) tuple
 results = model.transcribe(
     audio="path/to/audio.wav",
     language=None,  # auto-detect, or set "English", "Chinese", "Tamil", "Malay"
