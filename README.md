@@ -67,9 +67,19 @@ Polyglot-Lion achieves comparable quality at a **fraction of the cost**:
 
 ### Inference Latency
 
-<div align="center">
-<img src="docs/assets/speed-comparison.png" alt="Inference latency comparison" width="500"/>
-</div>
+| Model | Time (s/sample) |
+|:---|:---:|
+| MERaLiON-2-10B-ASR | 2.0152 ± 0.8846 |
+| Qwen2.5-Omni-3B | 1.7838 ± 1.0431 |
+| Qwen2.5-Omni-7B | 1.3414 ± 0.6572 |
+| SeaLLMs-Audio-7B | 0.6422 ± 0.0000 |
+| Whisper-large-v3-turbo | 0.2822 ± 0.0230 |
+| Qwen3-ASR-1.7B | 0.0809 ± 0.0290 |
+| Qwen3-ASR-0.6B | 0.0686 ± 0.0251 |
+| **Polyglot-Lion-0.6B** | **0.0999 ± 0.0561** |
+| **Polyglot-Lion-1.7B** | **0.1038 ± 0.0621** |
+
+*Measured on a single NVIDIA RTX PRO 4500 GPU. Lower is better.*
 
 ---
 
