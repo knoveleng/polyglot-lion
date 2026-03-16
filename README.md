@@ -115,10 +115,10 @@ uv venv --python 3.12
 source .venv/bin/activate
 
 # Install qwen-asr (transformers backend)
-uv pip install qwen-asr
+uv pip install qwen-asr hf_transfer
 
 # Optional: install vLLM backend for faster inference
-uv pip install "qwen-asr[vllm]"
+uv pip install "qwen-asr[vllm]" hf_transfer
 
 # Optional but recommended: install FlashAttention 2
 # uv pip install flash-attn --no-build-isolation
