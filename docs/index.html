@@ -81,7 +81,7 @@
                     sampling strategy that equalises the number of training utterances per language and deliberately
                     omits language-tag conditioning so that the model learns to identify languages implicitly from
                     audio. On 12 benchmarks spanning the four target languages, <strong>Polyglot-Lion-1.7B</strong>
-                    achieves an average error rate of <strong style="color: var(--accent-gold);">14.85</strong>,
+                    achieves an average error rate of <strong style="color: var(--accent-pink);">14.85</strong>,
                     competitive with MERaLiON-2-10B-ASR (14.32) — a model 6× larger — while incurring a training cost of
                     <strong style="color: var(--accent-gold);">$81</strong> on a single RTX PRO 6000 GPU compared to
                     <strong>$18,862</strong> for the 128-GPU baseline. Inference throughput is approximately <strong
@@ -109,7 +109,7 @@
             </div>
 
             <div class="table-wrapper animate-in">
-                <table class="results-table">
+                <table class="results-table" aria-label="Benchmark results across 12 datasets for all models">
                     <thead>
                         <tr>
                             <th>Model</th>
@@ -182,11 +182,11 @@
                             <td>28.25</td>
                             <td>44.55</td>
                             <td>54.74</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
+                            <td>318.36</td>
+                            <td>465.58</td>
+                            <td>448.82</td>
+                            <td>311.67</td>
+                            <td>211.90</td>
                             <td>74.69</td>
                             <td>172.37</td>
                         </tr>
@@ -199,11 +199,11 @@
                             <td>7.33</td>
                             <td>22.58</td>
                             <td>16.68</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
+                            <td>252.06</td>
+                            <td>239.15</td>
+                            <td>303.96</td>
+                            <td>326.43</td>
+                            <td>158.06</td>
                             <td>43.92</td>
                             <td>118.45</td>
                         </tr>
@@ -295,8 +295,7 @@
                     </tbody>
                 </table>
             </div>
-            <p class="animate-in"
-                style="color: var(--text-muted); font-family: var(--font-sans); font-size: 0.75rem; margin-top: 10px;">
+            <p class="animate-in" style="color: var(--text-muted); font-size: 0.75rem; margin-top: 10px;">
                 WER (%) for English, Tamil, and Malay; CER (%) for Mandarin. Lower is better. <span
                     style="color: var(--accent-gold);">Gold</span> = best overall. ★ = our models.
             </p>
@@ -370,7 +369,7 @@
                             <tr>
                                 <td>Training Data</td>
                                 <td>120,000 h</td>
-                                <td>968.83 h</td>
+                                <td>783 h</td>
                             </tr>
                             <tr>
                                 <td>Hardware</td>
@@ -506,12 +505,11 @@
             <span class="section-label animate-in">Citation</span>
             <h2 class="animate-in">Cite Our Work</h2>
             <div class="citation-block animate-in">
-                <button class="copy-btn" onclick="copyCitation()" id="copyBtn">
+                <button class="copy-btn" onclick="copyCitation()" id="copyBtn" aria-label="Copy citation to clipboard">
                     📋 Copy
                 </button>
                 <pre><code>@misc{dang2026polyglotlion,
-  title   = {Polyglot-Lion: Efficient Multilingual ASR for Singapore
-             via Balanced Fine-Tuning of Qwen3-ASR},
+  title   = {Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR},
   author  = {Quy-Anh Dang and Chris Ngo},
   year    = {2026},
   url     = {https://github.com/knoveleng/polyglot-lion}
