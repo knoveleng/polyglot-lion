@@ -16,7 +16,7 @@
 ## ✨ Highlights
 
 - 🏆 **State-of-the-art accuracy** among models of similar size across 4 languages and 14 benchmark datasets
-- 💰 **$81 training cost** — 230× cheaper than comparable multilingual ASR systems (vs. $18,862 for MERaLiON-2-10B-ASR)
+- 💰 **$81 training cost** — 233× cheaper than comparable multilingual ASR systems (vs. $18,862 for MERaLiON-2-10B-ASR)
 - 🖥️ **Single GPU training** on 1× NVIDIA RTX PRO 6000 in 48 hours
 - ⚡ **Fast inference** — ~0.10 s/sample on a single NVIDIA RTX PRO 4500 GPU
 - 📦 **Compact models** — 0.6B and 1.7B parameters, easily deployable on edge devices
@@ -95,7 +95,7 @@ To handle severe class imbalance across languages and datasets, we introduce a *
 
 ### Training Data
 
-We curate a multilingual corpus spanning **4 languages**, **12 datasets**, and **~783 hours** of audio:
+We curate a multilingual corpus spanning **4 languages**, **12 datasets**, and **~969 hours** of audio:
 
 <div align="center">
 <img src="docs/assets/dataset-stats.png" alt="Dataset statistics by language" width="700"/>
