@@ -2,6 +2,7 @@
 
 ## Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR
 
+[![Project Page](https://img.shields.io/badge/🌐_Project-Page-6366f1.svg)](https://knoveleng.github.io/polyglot-lion/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Models on HF](https://img.shields.io/badge/🤗_Models-Hugging_Face-blue)](https://huggingface.co/knoveleng)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-3776AB.svg)](https://www.python.org/)
@@ -30,7 +31,7 @@
 Polyglot-Lion achieves competitive or best-in-class Word Error Rate (WER) and Character Error Rate (CER) across all four languages, outperforming models up to **16× larger**.
 
 <div align="center">
-<img src="assets/overall-error-rate.png" alt="Average error rate comparison across models" width="900"/>
+<img src="docs/assets/overall-error-rate.png" alt="Average error rate comparison across models" width="900"/>
 </div>
 
 <details>
@@ -67,7 +68,7 @@ Polyglot-Lion achieves comparable quality at a **fraction of the cost**:
 ### Inference Latency
 
 <div align="center">
-<img src="assets/speed-comparison.png" alt="Inference latency comparison" width="500"/>
+<img src="docs/assets/speed-comparison.png" alt="Inference latency comparison" width="500"/>
 </div>
 
 ---
@@ -86,7 +87,7 @@ To handle severe class imbalance across languages and datasets, we introduce a *
 We curate a multilingual corpus spanning **4 languages**, **12 datasets**, and **~969 hours** of audio:
 
 <div align="center">
-<img src="assets/dataset-stats.png" alt="Dataset statistics by language" width="700"/>
+<img src="docs/assets/dataset-stats.png" alt="Dataset statistics by language" width="700"/>
 </div>
 
 ---
@@ -181,7 +182,7 @@ Polyglot-Lion can be fine-tuned on your own data using the Qwen3-ASR fine-tuning
 
 ---
 
-## � Evaluation
+## 📏 Evaluation
 
 We use [asr-evalkit](https://github.com/knoveleng/asr-evalkit) — a modular toolkit for evaluating ASR models — to benchmark Polyglot-Lion.
 
@@ -217,7 +218,7 @@ For additional evaluators, datasets, and Python API usage, see the [asr-evalkit 
 
 ---
 
-## �📝 Citation
+## 📝 Citation
 
 If you find Polyglot-Lion useful in your research, please cite:
 
