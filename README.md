@@ -1,8 +1,6 @@
 <div align="center">
 
-# 🦁 Polyglot-Lion
-
-### Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR
+## Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Models on HF](https://img.shields.io/badge/🤗_Models-Hugging_Face-blue)](https://huggingface.co/knoveleng)
