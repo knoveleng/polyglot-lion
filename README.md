@@ -28,7 +28,7 @@
 
 ### ASR Evaluation
 
-Polyglot-Lion achieves competitive or best-in-class Word Error Rate (WER) and Character Error Rate (CER) across all four languages, outperforming models up to **16× larger**.
+Polyglot-Lion achieves competitive or best-in-class Word Error Rate (WER) and Character Error Rate (CER) across all four languages, outperforming models up to **6× larger**.
 
 <div align="center">
 <img src="docs/assets/overall-error-rate.png" alt="Average error rate comparison across models" width="900"/>
@@ -95,7 +95,7 @@ To handle severe class imbalance across languages and datasets, we introduce a *
 
 ### Training Data
 
-We curate a multilingual corpus spanning **4 languages**, **12 datasets**, and **~969 hours** of audio:
+We curate a multilingual corpus spanning **4 languages**, **12 datasets**, and **~783 hours** of audio:
 
 <div align="center">
 <img src="docs/assets/dataset-stats.png" alt="Dataset statistics by language" width="700"/>
