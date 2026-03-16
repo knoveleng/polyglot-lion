@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Polyglot-Lion: Efficient Multilingual ASR for Singapore</title>
+    <meta name="description"
+        content="Polyglot-Lion is a family of compact, high-performance multilingual ASR models for Singapore's four official languages — trained on a single GPU for under $81." />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span class="accent">Polyglot-Lion</span>: Efficient Multilingual ASR for Singapore via Balanced
+                Fine-Tuning of Qwen3-ASR</h1>
+            <p class="hero-authors">
+                <a href="mailto:quyanh.dang@knoveleng.com">Quy-Anh Dang</a><sup>*</sup> ,
+                <a href="https://github.com/knoveleng">Chris Ngo</a>
+            </p>
+            <p class="hero-affiliation">
+                <sup>*</sup>Corresponding Author &nbsp;&nbsp; Knovel Engineering Lab, Singapore
+            </p>
+            <div class="btn-group">
+                <a href="https://arxiv.org/abs/xxxx.xxxxx" class="btn btn-dark" target="_blank" rel="noopener">
+                    📄 Paper
+                </a>
+                <a href="https://github.com/knoveleng/polyglot-lion" class="btn btn-dark" target="_blank"
+                    rel="noopener">
+                    💻 Code
+                </a>
+                <a href="https://huggingface.co/collections/knoveleng/polyglot-lion" class="btn btn-dark"
+                    target="_blank" rel="noopener">
+                    🤗 Models
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     KEY METRICS
+     ═══════════════════════════════════════════ -->
+    <div class="stats-bar" id="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" data-target="81" data-prefix="$">$81</div>
+                <div class="stat-label">Training Cost</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" data-target="233" data-suffix="×">233×</div>
+                <div class="stat-label">Cheaper than MERaLiON</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" data-target="20" data-suffix="×">20×</div>
+                <div class="stat-label">Faster Inference</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" data-target="14.85">14.85</div>
+                <div class="stat-label">Avg Error Rate</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     ABSTRACT
+     ═══════════════════════════════════════════ -->
+    <section id="abstract" class="abstract-section">
+        <div class="container">
+            <div class="abstract-card animate-in">
+                <h2>Abstract</h2>
+                <p>
+                    We present <strong>Polyglot-Lion</strong>, a family of compact multilingual automatic speech
+                    recognition (ASR) models tailored for the linguistic landscape of Singapore, covering English,
+                    Mandarin, Tamil, and Malay. Our models are obtained by fine-tuning <code>Qwen3-ASR-0.6B</code> and
+                    <code>Qwen3-ASR-1.7B</code> exclusively on publicly available speech corpora, using a balanced
+                    sampling strategy that equalises the number of training utterances per language and deliberately
+                    omits language-tag conditioning so that the model learns to identify languages implicitly from
+                    audio. On 12 benchmarks spanning the four target languages, <strong>Polyglot-Lion-1.7B</strong>
+                    achieves an average error rate of <strong style="color: var(--accent-gold);">14.85</strong>,
+                    competitive with MERaLiON-2-10B-ASR (14.32) — a model 6× larger — while incurring a training cost of
+                    <strong style="color: var(--accent-gold);">$81</strong> on a single RTX PRO 6000 GPU compared to
+                    <strong>$18,862</strong> for the 128-GPU baseline. Inference throughput is approximately <strong
+                        style="color: var(--accent-green);">20× faster</strong> at 0.10 s/sample versus 2.02 s/sample.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     RESULTS
+     ═══════════════════════════════════════════ -->
+    <section id="results">
+        <div class="container">
+            <span class="section-label animate-in">Benchmark Results</span>
+            <h2 class="animate-in">State-of-the-Art Accuracy at a Fraction of the Size</h2>
+            <p class="animate-in" style="color: var(--text-secondary); max-width: 700px; margin-bottom: 8px;">
+                Polyglot-Lion achieves competitive or best-in-class WER and CER across all four languages, outperforming
+                models up to <strong style="color: var(--text-primary);">6× larger</strong>.
+            </p>
+
+            <div class="results-chart animate-in">
+                <img src="assets/overall-error-rate.png" alt="Average error rate comparison across models"
+                    loading="lazy" />
+            </div>
+
+            <div class="table-wrapper animate-in">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Params</th>
+                            <th colspan="2"><span class="lang-header">English</span></th>
+                            <th colspan="4"><span class="lang-header">Mandarin (CER)</span></th>
+                            <th colspan="4"><span class="lang-header">Tamil (WER)</span></th>
+                            <th colspan="2"><span class="lang-header">Malay</span></th>
+                            <th>Avg</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>LS</th>
+                            <th>NSC</th>
+                            <th>CV</th>
+                            <th>AISH1</th>
+                            <th>AISH3</th>
+                            <th>Fleurs</th>
+                            <th>CV</th>
+                            <th>SLR65</th>
+                            <th>SLR127</th>
+                            <th>Fleurs</th>
+                            <th>Meso.</th>
+                            <th>Fleurs</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Whisper-large-v3-turbo</td>
+                            <td>0.8B</td>
+                            <td>3.04</td>
+                            <td>32.02</td>
+                            <td>17.91</td>
+                            <td>9.64</td>
+                            <td>16.81</td>
+                            <td>10.63</td>
+                            <td>74.50</td>
+                            <td>58.13</td>
+                            <td>69.56</td>
+                            <td>66.90</td>
+                            <td>28.47</td>
+                            <td>8.88</td>
+                            <td>33.04</td>
+                        </tr>
+                        <tr>
+                            <td>SeaLLMs-Audio-7B</td>
+                            <td>7B</td>
+                            <td>94.74</td>
+                            <td>9.53</td>
+                            <td>8.68</td>
+                            <td>9.65</td>
+                            <td>9.76</td>
+                            <td>37.09</td>
+                            <td>126.70</td>
+                            <td>127.24</td>
+                            <td>138.65</td>
+                            <td>105.31</td>
+                            <td>71.34</td>
+                            <td>26.25</td>
+                            <td>63.75</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2.5-Omni-3B</td>
+                            <td>3B</td>
+                            <td>29.21</td>
+                            <td>34.79</td>
+                            <td>46.36</td>
+                            <td>28.25</td>
+                            <td>44.55</td>
+                            <td>54.74</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>74.69</td>
+                            <td>172.37</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2.5-Omni-7B</td>
+                            <td>7B</td>
+                            <td>13.80</td>
+                            <td>22.96</td>
+                            <td>14.49</td>
+                            <td>7.33</td>
+                            <td>22.58</td>
+                            <td>16.68</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>43.92</td>
+                            <td>118.45</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen3-ASR-0.6B</td>
+                            <td>0.6B</td>
+                            <td>2.74</td>
+                            <td>7.64</td>
+                            <td>10.06</td>
+                            <td>2.08</td>
+                            <td>2.59</td>
+                            <td>9.75</td>
+                            <td>121.10</td>
+                            <td>127.00</td>
+                            <td>129.12</td>
+                            <td>130.09</td>
+                            <td>47.29</td>
+                            <td>18.71</td>
+                            <td>50.68</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen3-ASR-1.7B</td>
+                            <td>1.7B</td>
+                            <td>2.31</td>
+                            <td>6.22</td>
+                            <td>7.50</td>
+                            <td>1.52</td>
+                            <td>2.08</td>
+                            <td>9.33</td>
+                            <td>139.96</td>
+                            <td>134.63</td>
+                            <td>144.49</td>
+                            <td>147.23</td>
+                            <td>39.00</td>
+                            <td>10.87</td>
+                            <td>53.76</td>
+                        </tr>
+                        <tr>
+                            <td>MERaLiON-2-10B-ASR</td>
+                            <td>10B</td>
+                            <td>2.54</td>
+                            <td class="best">4.62</td>
+                            <td>8.83</td>
+                            <td>3.09</td>
+                            <td>4.07</td>
+                            <td>11.99</td>
+                            <td class="best">31.78</td>
+                            <td class="best">19.29</td>
+                            <td class="best">22.42</td>
+                            <td class="best">28.68</td>
+                            <td>25.90</td>
+                            <td class="best">8.55</td>
+                            <td class="best">14.32</td>
+                        </tr>
+                        <tr class="row-ours">
+                            <td>★ Polyglot-Lion-0.6B</td>
+                            <td>0.6B</td>
+                            <td>2.67</td>
+                            <td>6.09</td>
+                            <td>6.16</td>
+                            <td>1.93</td>
+                            <td>2.32</td>
+                            <td>9.19</td>
+                            <td>42.16</td>
+                            <td>23.07</td>
+                            <td>28.14</td>
+                            <td>37.68</td>
+                            <td>24.33</td>
+                            <td>14.45</td>
+                            <td>16.52</td>
+                        </tr>
+                        <tr class="row-ours">
+                            <td>★ Polyglot-Lion-1.7B</td>
+                            <td>1.7B</td>
+                            <td class="best">2.10</td>
+                            <td>5.28</td>
+                            <td class="best">4.91</td>
+                            <td class="best">1.45</td>
+                            <td class="best">1.86</td>
+                            <td class="best">8.00</td>
+                            <td>39.19</td>
+                            <td>19.75</td>
+                            <td>26.83</td>
+                            <td>37.28</td>
+                            <td class="best">21.51</td>
+                            <td>9.98</td>
+                            <td>14.85</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="animate-in"
+                style="color: var(--text-muted); font-family: var(--font-sans); font-size: 0.75rem; margin-top: 10px;">
+                WER (%) for English, Tamil, and Malay; CER (%) for Mandarin. Lower is better. <span
+                    style="color: var(--accent-gold);">Gold</span> = best overall. ★ = our models.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     METHOD
+     ═══════════════════════════════════════════ -->
+    <section id="method"
+        style="background: var(--bg-section); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <span class="section-label animate-in">Method</span>
+            <h2 class="animate-in">Two-Stage Balanced Multilingual Upsampling</h2>
+            <p class="animate-in" style="color: var(--text-secondary); max-width: 700px; margin-bottom: 8px;">
+                To handle severe class imbalance across languages and datasets, we introduce a two-stage deterministic
+                upsampling strategy.
+            </p>
+
+            <div class="method-grid">
+                <div class="method-card animate-in">
+                    <h3>🔄 Stage 1 — Intra-Language Balancing</h3>
+                    <p>Within each language, smaller datasets are replicated and subsampled to match the largest dataset
+                        in that language group, ensuring equal representation of all corpora within a single language.
+                    </p>
+                    <h3 style="margin-top: 20px;">🌐 Stage 2 — Inter-Language Balancing</h3>
+                    <p>Across languages, per-language corpora are balanced so every language contributes exactly <strong
+                            style="color: var(--accent-gold);">25%</strong> to the final training set — guaranteeing
+                        equal coverage regardless of data availability.</p>
+                    <h3 style="margin-top: 20px;">🔇 Language-Agnostic Decoding</h3>
+                    <p>No language tags are used at training or inference time. The model identifies the spoken language
+                        <strong>implicitly from audio</strong> alone — ideal for Singapore's code-switching environment.
+                    </p>
+                </div>
+                <div class="method-card animate-in">
+                    <h3>📋 Algorithm</h3>
+                    <img src="assets/algorithm.png" alt="Two-stage balanced upsampling algorithm" loading="lazy" />
+                </div>
+            </div>
+
+            <div class="data-card animate-in">
+                <h3>Training Data — 4 Languages, 12 Datasets, ~969 Hours</h3>
+                <img src="assets/dataset-stats.png" alt="Dataset statistics by language" loading="lazy" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     COST & SPEED
+     ═══════════════════════════════════════════ -->
+    <section id="cost">
+        <div class="container">
+            <span class="section-label animate-in">Efficiency</span>
+            <h2 class="animate-in">Dramatically Lower Cost, Dramatically Higher Speed</h2>
+
+            <div class="comparison-grid">
+                <!-- Cost comparison -->
+                <div class="comparison-card animate-in">
+                    <div class="comparison-card-header">
+                        <h3>💰 Training Cost Comparison</h3>
+                    </div>
+                    <table class="cost-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>MERaLiON-2-10B</th>
+                                <th>Polyglot-Lion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Training Data</td>
+                                <td>120,000 h</td>
+                                <td>968.83 h</td>
+                            </tr>
+                            <tr>
+                                <td>Hardware</td>
+                                <td>128 × H100</td>
+                                <td>1 × RTX PRO 6000</td>
+                            </tr>
+                            <tr>
+                                <td>Training Time</td>
+                                <td>48 h</td>
+                                <td>48 h</td>
+                            </tr>
+                            <tr>
+                                <td>Est. Cost</td>
+                                <td class="highlight" style="color: var(--text-primary);">$18,862</td>
+                                <td class="highlight" style="color: var(--accent-green);">$81</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Speed comparison -->
+                <div class="comparison-card animate-in">
+                    <div class="comparison-card-header">
+                        <h3>⚡ Inference Speed</h3>
+                    </div>
+                    <table class="cost-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Time (s/sample)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MERaLiON-2-10B-ASR</td>
+                                <td>2.0152 ± 0.8846</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2.5-Omni-3B</td>
+                                <td>1.7838 ± 1.0431</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2.5-Omni-7B</td>
+                                <td>1.3414 ± 0.6572</td>
+                            </tr>
+                            <tr>
+                                <td>SeaLLMs-Audio-7B</td>
+                                <td>0.6422 ± 0.0000</td>
+                            </tr>
+                            <tr>
+                                <td>Whisper-large-v3-turbo</td>
+                                <td>0.2822 ± 0.0230</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen3-ASR-1.7B</td>
+                                <td>0.0809 ± 0.0290</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen3-ASR-0.6B</td>
+                                <td>0.0686 ± 0.0251</td>
+                            </tr>
+                            <tr class="row-ours">
+                                <td>★ Polyglot-Lion-0.6B</td>
+                                <td class="highlight" style="color: var(--accent-green);">0.0999 ± 0.0561</td>
+                            </tr>
+                            <tr class="row-ours">
+                                <td>★ Polyglot-Lion-1.7B</td>
+                                <td class="highlight" style="color: var(--accent-green);">0.1038 ± 0.0621</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     MODELS
+     ═══════════════════════════════════════════ -->
+    <section id="models"
+        style="background: var(--bg-section); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <span class="section-label animate-in">Models</span>
+            <h2 class="animate-in">Download on 🤗 Hugging Face</h2>
+
+            <div class="model-cards">
+                <div class="model-card animate-in">
+                    <div class="model-name">Polyglot-Lion-0.6B</div>
+                    <div class="model-params">0.6 Billion Parameters</div>
+                    <div class="model-stats">
+                        <div class="model-stat-item">
+                            <div class="model-stat-val">16.52</div>
+                            <div class="model-stat-lbl">Avg Error Rate</div>
+                        </div>
+                        <div class="model-stat-item">
+                            <div class="model-stat-val">0.10s</div>
+                            <div class="model-stat-lbl">Per Sample</div>
+                        </div>
+                    </div>
+                    <a href="https://huggingface.co/knoveleng/polyglot-lion-0.6b" class="btn-hf" target="_blank"
+                        rel="noopener">
+                        🤗 Download Model
+                    </a>
+                </div>
+
+                <div class="model-card animate-in">
+                    <div class="model-name">Polyglot-Lion-1.7B</div>
+                    <div class="model-params">1.7 Billion Parameters</div>
+                    <div class="model-stats">
+                        <div class="model-stat-item">
+                            <div class="model-stat-val" style="color: var(--accent-gold);">14.85</div>
+                            <div class="model-stat-lbl">Avg Error Rate</div>
+                        </div>
+                        <div class="model-stat-item">
+                            <div class="model-stat-val" style="color: var(--accent-gold);">0.10s</div>
+                            <div class="model-stat-lbl">Per Sample</div>
+                        </div>
+                    </div>
+                    <a href="https://huggingface.co/knoveleng/polyglot-lion-1.7b" class="btn-hf" target="_blank"
+                        rel="noopener">
+                        🤗 Download Model
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     CITATION
+     ═══════════════════════════════════════════ -->
+    <section id="citation">
+        <div class="container">
+            <span class="section-label animate-in">Citation</span>
+            <h2 class="animate-in">Cite Our Work</h2>
+            <div class="citation-block animate-in">
+                <button class="copy-btn" onclick="copyCitation()" id="copyBtn">
+                    📋 Copy
+                </button>
+                <pre><code>@misc{dang2026polyglotlion,
+  title   = {Polyglot-Lion: Efficient Multilingual ASR for Singapore
+             via Balanced Fine-Tuning of Qwen3-ASR},
+  author  = {Quy-Anh Dang and Chris Ngo},
+  year    = {2026},
+  url     = {https://github.com/knoveleng/polyglot-lion}
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/knoveleng/polyglot-lion" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://huggingface.co/knoveleng" target="_blank" rel="noopener">Hugging Face</a>
+                <a href="https://github.com/knoveleng" target="_blank" rel="noopener">Knovel Engineering</a>
+            </div>
+            <p>Released under the <a href="https://github.com/knoveleng/polyglot-lion/blob/main/LICENSE" target="_blank"
+                    rel="noopener">MIT License</a>. © 2026 Knovel Engineering Lab.</p>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════ -->
+    <script>
+        // Scroll-triggered fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 60);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+        // Animated number counting
+        function animateCounters() {
+            document.querySelectorAll('.stat-value[data-target]').forEach(el => {
+                const target = parseFloat(el.dataset.target);
+                const prefix = el.dataset.prefix || '';
+                const suffix = el.dataset.suffix || '';
+                const isDecimal = String(target).includes('.');
+                const duration = 1000;
+                const start = performance.now();
+
+                function update(now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = target * eased;
+                    el.textContent = prefix + (isDecimal ? current.toFixed(2) : Math.round(current)) + suffix;
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        // Trigger counters when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.getElementById('stats');
+        if (statsSection) statsObserver.observe(statsSection);
+
+        // Copy citation
+        function copyCitation() {
+            const code = document.querySelector('.citation-block code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.innerHTML = '✅ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = '📋 Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
