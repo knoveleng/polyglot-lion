@@ -45,9 +45,10 @@ Polyglot-Lion achieves competitive or best-in-class Word Error Rate (WER) and Ch
 | Qwen2.5-Omni-7B | 7B | 13.80 | 22.96 | 14.49 | 7.33 | 22.58 | 16.68 | 252.06 | 239.15 | 303.96 | 326.43 | 158.06 | 43.92 | 118.45 |
 | Qwen3-ASR-0.6B | 0.6B | 2.74 | 7.64 | 10.06 | 2.08 | 2.59 | 9.75 | 121.10 | 127.00 | 129.12 | 130.09 | 47.29 | 18.71 | 50.68 |
 | Qwen3-ASR-1.7B | 1.7B | 2.31 | 6.22 | 7.50 | 1.52 | 2.08 | 9.33 | 139.96 | 134.63 | 144.49 | 147.23 | 39.00 | 10.87 | 53.76 |
-| MERaLiON-2-10B-ASR | 10B | 2.54 | **4.62** | 8.83 | 3.09 | 4.07 | 11.99 | **31.78** | **19.29** | **22.42** | **28.68** | 25.90 | 8.55 | 14.32 |
-| **Polyglot-Lion-0.6B** | **0.6B** | 2.67 | 6.09 | **6.16** | 1.93 | 2.32 | **9.19** | 42.16 | 23.07 | 28.14 | 37.68 | **24.33** | 14.45 | 16.52 |
-| **Polyglot-Lion-1.7B** | **1.7B** | **2.10** | 5.28 | 4.91 | **1.45** | **1.86** | 8.00 | 39.19 | 19.75 | 26.83 | 37.28 | 21.51 | **9.98** | **14.85** |
+| MERaLiON-2-10B-ASR | 10B | 2.54 | **4.62** | 8.83 | 3.09 | 4.07 | 11.99 | **31.78** | **19.29** | **22.42** | **28.68** | 25.90 | **8.55** | **14.32** |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **Polyglot-Lion-0.6B** | 0.6B | 2.67 | 6.09 | 6.16 | 1.93 | 2.32 | 9.19 | 42.16 | 23.07 | 28.14 | 37.68 | 24.33 | 14.45 | 16.52 |
+| **Polyglot-Lion-1.7B** | 1.7B | **2.10** | 5.28 | **4.91** | **1.45** | **1.86** | **8.00** | 39.19 | 19.75 | 26.83 | 37.28 | **21.51** | 9.98 | 14.85 |
 
 *WER (%) for English, Tamil, and Malay; CER (%) for Mandarin. Lower is better.*
 *Bold = best overall; results with WER > 200% excluded from average.*
@@ -60,7 +61,7 @@ Polyglot-Lion achieves comparable quality at a **fraction of the cost**:
 
 |  | MERaLiON-2-10B-ASR | Polyglot-Lion |
 |:---|:---:|:---:|
-| Training Data | 120,000 h | 968.83 h |
+| Training Data | 120,000 h | 783 h |
 | Hardware | 128 × H100 | 1 × RTX PRO 6000 |
 | Training Time | 48 h | 48 h |
 | **Est. Cost** | **$18,862** | **$81** |
@@ -76,8 +77,8 @@ Polyglot-Lion achieves comparable quality at a **fraction of the cost**:
 | Whisper-large-v3-turbo | 0.2822 ± 0.0230 |
 | Qwen3-ASR-1.7B | 0.0809 ± 0.0290 |
 | Qwen3-ASR-0.6B | 0.0686 ± 0.0251 |
-| **Polyglot-Lion-0.6B** | **0.0999 ± 0.0561** |
-| **Polyglot-Lion-1.7B** | **0.1038 ± 0.0621** |
+| **Polyglot-Lion-0.6B** | 0.0999 ± 0.0561 |
+| **Polyglot-Lion-1.7B** | 0.1038 ± 0.0621 |
 
 *Measured on a single NVIDIA RTX PRO 4500 GPU. Lower is better.*
 
