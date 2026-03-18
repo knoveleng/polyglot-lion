@@ -15,7 +15,7 @@
 
 ## ✨ Highlights
 
-- 🏆 **State-of-the-art accuracy** among models of similar size across 4 languages and 14 benchmark datasets
+- 🏆 **State-of-the-art accuracy** among models of similar size across 4 languages and 12 benchmark datasets
 - 💰 **$81 training cost** — 233× cheaper than comparable multilingual ASR systems (vs. $18,862 for MERaLiON-2-10B-ASR)
 - 🖥️ **Single GPU training** on 1× NVIDIA RTX PRO 6000 in 48 hours
 - ⚡ **Fast inference** — ~0.10 s/sample on a single NVIDIA RTX PRO 4500 GPU
