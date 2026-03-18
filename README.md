@@ -1,9 +1,9 @@
 <div align="center">
 
-## Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR
+## [Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR](https://arxiv.org/abs/2603.16184)
 
 [![Project Page](https://img.shields.io/badge/🌐_Project-Page-6366f1.svg)](https://knoveleng.github.io/polyglot-lion/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Paper](https://img.shields.io/badge/arXiv-2603.16184-b31b1b.svg)](https://arxiv.org/abs/2603.16184)
 [![Models on HF](https://img.shields.io/badge/🤗_Models-Hugging_Face-blue)](https://huggingface.co/knoveleng)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-3776AB.svg)](https://www.python.org/)
 
@@ -235,10 +235,13 @@ If you find Polyglot-Lion useful in your research, please cite:
 
 ```bibtex
 @misc{dang2026polyglotlion,
-  title   = {Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR},
-  author  = {Quy-Anh Dang and Chris Ngo},
-  year    = {2026},
-  url     = {https://github.com/knoveleng/polyglot-lion}
+      title={Polyglot-Lion: Efficient Multilingual ASR for Singapore via Balanced Fine-Tuning of Qwen3-ASR}, 
+      author={Quy-Anh Dang and Chris Ngo},
+      year={2026},
+      eprint={2603.16184},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2603.16184}, 
 }
 ```
 
