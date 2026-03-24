@@ -16,7 +16,7 @@
 ## ✨ Highlights
 
 - 🏆 **State-of-the-art accuracy** among models of similar size across 4 languages and 12 benchmark datasets
-- 💰 **$81 training cost** — 233× cheaper than comparable multilingual ASR systems (vs. $18,862 for MERaLiON-2-10B-ASR)
+- 💰 **$81 training cost** — trained on a single consumer GPU for under $81
 - 🖥️ **Single GPU training** on 1× NVIDIA RTX PRO 6000 in 48 hours
 - ⚡ **Fast inference** — ~0.10 s/sample on a single NVIDIA RTX PRO 4500 GPU
 - 📦 **Compact models** — 0.6B and 1.7B parameters, easily deployable on edge devices
@@ -57,14 +57,12 @@ Polyglot-Lion achieves competitive or best-in-class Word Error Rate (WER) and Ch
 
 ### Training Cost
 
-Polyglot-Lion achieves comparable quality at a **fraction of the cost**:
-
-|  | MERaLiON-2-10B-ASR | Polyglot-Lion |
-|:---|:---:|:---:|
-| Training Data | 120,000 h | 783 h |
-| Hardware | 128 × H100 | 1 × RTX PRO 6000 |
-| Training Time | 48 h | 48 h |
-| **Est. Cost** | **$18,862** | **$81** |
+| | Polyglot-Lion |
+|:---|:---:|
+| Training Data | 783 h |
+| Hardware | 1 × RTX PRO 6000 |
+| Training Time | 48 h |
+| **Est. Cost** | **$81** |
 
 ### Inference Latency
 

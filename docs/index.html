@@ -52,8 +52,8 @@
                 <div class="stat-label">Training Cost</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" data-target="233" data-suffix="×">233×</div>
-                <div class="stat-label">Cheaper than MERaLiON</div>
+                <div class="stat-value" data-target="48" data-suffix=" h">48 h</div>
+                <div class="stat-label">Training Time</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value" data-target="20" data-suffix="×">20×</div>
@@ -83,9 +83,10 @@
                     audio. On 12 benchmarks spanning the four target languages, <strong>Polyglot-Lion-1.7B</strong>
                     achieves an average error rate of <strong style="color: var(--accent-pink);">14.85</strong>,
                     competitive with MERaLiON-2-10B-ASR (14.32) — a model 6× larger — while incurring a training cost of
-                    <strong style="color: var(--accent-gold);">$81</strong> on a single RTX PRO 6000 GPU compared to
-                    <strong>$18,862</strong> for the 128-GPU baseline. Inference throughput is approximately <strong
-                        style="color: var(--accent-green);">20× faster</strong> at 0.10 s/sample versus 2.02 s/sample.
+                    only
+                    <strong style="color: var(--accent-gold);">$81</strong> on a single RTX PRO 6000 GPU. Inference
+                    throughput is approximately <strong style="color: var(--accent-green);">20× faster</strong> than
+                    MERaLiON at 0.10 s/sample versus 2.02 s/sample.
                 </p>
             </div>
         </div>
@@ -352,38 +353,33 @@
             <h2 class="animate-in">Dramatically Lower Cost, Dramatically Higher Speed</h2>
 
             <div class="comparison-grid">
-                <!-- Cost comparison -->
+                <!-- Cost card -->
                 <div class="comparison-card animate-in">
                     <div class="comparison-card-header">
-                        <h3>💰 Training Cost Comparison</h3>
+                        <h3>💰 Training Cost</h3>
                     </div>
                     <table class="cost-table">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>MERaLiON-2-10B</th>
                                 <th>Polyglot-Lion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Training Data</td>
-                                <td>120,000 h</td>
                                 <td>783 h</td>
                             </tr>
                             <tr>
                                 <td>Hardware</td>
-                                <td>128 × H100</td>
                                 <td>1 × RTX PRO 6000</td>
                             </tr>
                             <tr>
                                 <td>Training Time</td>
                                 <td>48 h</td>
-                                <td>48 h</td>
                             </tr>
                             <tr>
                                 <td>Est. Cost</td>
-                                <td class="highlight" style="color: var(--text-primary);">$18,862</td>
                                 <td class="highlight" style="color: var(--accent-green);">$81</td>
                             </tr>
                         </tbody>
